@@ -1,0 +1,55 @@
+#include<stdio.h>
+int main()
+{
+    int max_freq,max_inter,i,input,n,w,freq[12],k;
+    float result,factor,temp,offset;
+    while(1)
+    {
+        scanf("%d",&n);
+        scanf("%d",&w);
+        if(n==0)
+            break;
+        for(i=0;i<12;i++)
+            freq[i]=0;
+        for(i=0;i<n;i++)
+        {
+            scanf("%d",&input);
+            for(k=0;k<120;k++)
+            {
+                if(input<k*w)
+                {
+                    freq[k]++;
+                    break;
+                }
+            }
+        }
+		for(i=11;i>0;i--)
+        {
+            if(freq[i]!=0)
+            {
+                max_inter=i;
+                break;
+            }
+        }
+        max_inter--;
+        max_freq=-1;
+		for(i=11;i>0;i--)
+        {
+            if(freq[i]>max_freq)
+                max_freq=freq[i];
+        }
+        factor=1.00;
+        offset=factor/(float)max_inter;
+        result=0;
+		for(i=1;i<=max_inter;i++)
+        {
+            temp=(float)freq[i]*factor;
+            temp=temp/(float)max_freq;
+            result=result+temp;
+            factor=factor-offset;
+        }
+		result=result+0.010000;
+        printf("%f\n",result);
+    }
+    return 0;
+}
